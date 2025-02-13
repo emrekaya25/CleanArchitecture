@@ -14,7 +14,7 @@ namespace CleanArchitecture.Domain.Users
         public string LastName { get; set; } = default!;
         public string FullName => string.Join(" ", FirstName,LastName); // User newlendiğinde db de gözükmeyecek ama benim kullanabileceğim bir field
         public DateTimeOffset BirthOfDate { get; set; }
-        public PersonalInformation? PersonalInformation { get; set; }
+        public PersonalInformation PersonalInformation { get; set; } = default!;
         public Address? Address { get; set; }
     }
 }

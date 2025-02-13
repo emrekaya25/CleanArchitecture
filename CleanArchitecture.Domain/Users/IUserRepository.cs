@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Domain.GenericRepository;
+﻿using CleanArchitecture.Domain.Common.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

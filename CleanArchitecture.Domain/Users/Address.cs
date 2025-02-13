@@ -1,5 +1,4 @@
-﻿
-//Record -> db de tanımlanmayacak User'a ek veri gibi, DTO ile benzer kullanım.(Value Object)
+﻿//Record -> db de tanımlanmayacak User'a ek veri gibi, DTO ile benzer kullanım.(Value Object)
 public sealed record Address
 {
     public string? Country { get; set; }
