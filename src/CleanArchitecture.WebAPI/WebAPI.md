@@ -30,7 +30,7 @@
 ✔ Modules klasöründe bizim entitylerimizin Add-Delete-Update işlemlerinin endpointleri yazılır. MinimalAPI yazdığımız kısım orasıdır. Sonrasında ise genel bir RouteRegistrar.cs yardımıyla yazdığımız tüm MinimalAPI endpointlerini program.cs de çağırıp oluşturabiliriz.
 ✔ ** GetAll Metodunu OData ile çağırdık çünkü direk OData üzerinden filtreleme yapabiliyoruz.
 
-### MinimalAPI nedir?
+## MinimalAPI nedir?
 - Minimal API, .NET 6 ile tanıtılan, daha basit ve hafif bir API geliştirme modelidir. Bu model, geleneksel Controller tabanlı yapıya kıyasla daha az kodla hızlıca API geliştirmeyi mümkün kılar.
 - Minimal API ile  controller, model binding, view rendering gibi ekstra katmanlar olmadan doğrudan HTTP endpoint’leri oluşturabilirsiniz.
 - Ekstra gereksiz katmanlardan kaçındığı için, Minimal API daha hızlı çalışabilir ve daha az bellek kullanabilir.
