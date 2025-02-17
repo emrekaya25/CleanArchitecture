@@ -1,8 +1,8 @@
 # Clean Architecture Setup
 
-2025 yılı için projelerde kullanılabilecek modern bir Clean Architecture yapısı sunulmaktadır.
+2025 yÄ±lÄ± iÃ§in projelerde kullanÄ±labilecek modern bir Clean Architecture yapÄ±sÄ± sunulmaktadÄ±r.
 
-### Mimari Yapı
+### Mimari YapÄ±
 - **Architectural Pattern**: Clean Architecture
 - **Design Patterns**:
   - Result Pattern
@@ -10,14 +10,18 @@
   - CQRS Pattern
   - UnitOfWork Pattern
 
-### Kullanılan Kütüphaneler
-- **MediatR**: CQRS ve mesajlaşma işlemleri için kullanıldı.
--**Mapster**: Nesne eşleşmeleri(mapleme) için kullanıldı.
-- **FluentValidation**: Doğrulama işlemleri için kullanıldı.
-- **EntityFrameworkCore**: ORM(Object-Relational Mapping) için kullanıldı.
-- **OData**: Sorgulama ve veri erişiminde esneklik sağlamak için kullanıldı.
-- **Scrutor**: Dependency Injection yönetimi ve dinamik servis kaydı için kullanıldı.
+### KullanÄ±lan KÃ¼tÃ¼phaneler
+- **MediatR**: CQRS ve mesajlaÅŸma iÅŸlemleri iÃ§in kullanÄ±ldÄ±.
+-**Mapster**: Nesne eÅŸleÅŸmeleri(mapleme) iÃ§in kullanÄ±ldÄ±.
+- **FluentValidation**: DoÄŸrulama iÅŸlemleri iÃ§in kullanÄ±ldÄ±.
+- **EntityFrameworkCore**: ORM(Object-Relational Mapping) iÃ§in kullanÄ±ldÄ±.
+- **OData**: Sorgulama ve veri eriÅŸiminde esneklik saÄŸlamak iÃ§in kullanÄ±ldÄ±.
+- **Scrutor**: Dependency Injection yÃ¶netimi ve dinamik servis kaydÄ± iÃ§in kullanÄ±ldÄ±.
 
 
-## Kurulum ve Kullanım
-1. **Klonlayın**:
+## Kurulum ve KullanÄ±m
+1. **Depoyu KlonlayÄ±n**:
+
+   ```sh
+   git clone https://github.com/emrekaya25/CleanArchitecture.git
+   cd CleanArchitecture
