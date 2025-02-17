@@ -7,7 +7,10 @@ public static class RouteRegistrar
     // Oluşturduğumuz modülleri burada bağlıyoruz.
     public static void RegistrarRoutes(this IEndpointRouteBuilder app)
     {
+        //User
         app.RegisterUserRoutes();
+        app.DeleteUserRoutes();
+        app.UpdateUserRoutes();
     }
 }
 

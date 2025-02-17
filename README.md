@@ -1,6 +1,7 @@
 # Clean Architecture Setup
 
-2025 yılı için projelerde kullanılabilecek modern bir Clean Architecture yapısı sunulmaktadır.
+- 2025 yılı için projelerde kullanılabilecek modern bir Clean Architecture yapısı sunulmaktadır.
+- Detaylı anlatım için katmanların içindeki .md dosyalarını inceleyebilirsiniz.
 
 ### Mimari Yapı
 - **Architectural Pattern**: Clean Architecture

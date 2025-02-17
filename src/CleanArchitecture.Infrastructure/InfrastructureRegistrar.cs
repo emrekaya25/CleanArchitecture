@@ -2,6 +2,8 @@
 using CleanArchitecture.Domain.Users;
 using CleanArchitecture.Infrastructure.Context;
 using CleanArchitecture.Infrastructure.Repositories;
+using Mapster;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +41,11 @@ public static class InfrastructureRegistrar
         );
         // UsingRegistrationStrategy(RegistrationStrategy.Skip) -> eğer daha önceden DI yapılmış varsa onu geç yapma 2.defa
         //WithScopedLifeTime() ile bitiriyoruz.
+
+        var config = TypeAdapterConfig.GlobalSettings;
+        config.Scan(typeof(ApplicationDbContext).Assembly); // Burada Mapster configlerini tarıyoruz!
+        services.AddSingleton(config);
+
         return services;
     }
 }
