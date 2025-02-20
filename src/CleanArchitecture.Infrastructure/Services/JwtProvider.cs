@@ -18,7 +18,7 @@ namespace CleanArchitecture.Infrastructure.Services
             SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(options.Value.SecretKey));
             SigningCredentials signingCredentials = new(securityKey,SecurityAlgorithms.HmacSha512);// security key ve algoritma ister
 
-            List<Claim> claims = new()
+            List<Claim> claims = new() //tokenın içine yazılacak bilgiler
             {
                 new Claim("user-id",user.Id.ToString())
             };

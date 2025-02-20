@@ -33,7 +33,7 @@ internal sealed class ApplicationDbContext : IdentityDbContext<AppUser, Identity
     {
         HttpContextAccessor httpContextAccessor = new();
         string userIdString = httpContextAccessor.HttpContext!.User.Claims.First(x => x.Type == "user-id").Value;
-        Guid userId = Guid.Parse(userIdString);
+        Guid userId = Guid.Parse(userIdString); // giriş yapan kullanıcının id'sini aldık.
 
         var entries = ChangeTracker.Entries<Entity>();
         foreach (var entry in entries)

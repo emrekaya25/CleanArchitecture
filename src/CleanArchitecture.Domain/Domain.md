@@ -12,3 +12,6 @@
 
 ### Users vb.
 - Burasıda bizim entitylerimizi klasörlediğimiz kısım içerisinde repository'side dahil olmak üzere o entity ile alakalı sınıflar bulunur.
+
+### AppUsers.cs 
+- Microsoft.AspNetCore.Identity kütüphanesi ile kullanılacak giriş,rol vs gibi işlemlerin yapılacağı kullanıcı sınıfı.

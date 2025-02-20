@@ -45,3 +45,29 @@
 
 ## ApplicationRegistrar.cs nedir ?
 - 📌 Bulunduğu katmanın servislerini, bağımlılıklarını veya bileşenlerini kaydetmek için kullanılan bir yapıdır. Özellikle Dependency Injection konteynırına servisleri eklemek için kullanılır.
+
+## Microsoft.AspNetCore.Identity kütüphanesi nedir ?
+- 📌 Kimlik doğrulama (authentication) ve yetkilendirme (authorization) işlemlerini yönetmek için kullanılan bir kütüphanedir. Kullanıcı yönetimi, roller, şifreleme, token doğrulama gibi birçok güvenlik özelliğini sağlar.
+
+- #### 📌 Temel Özellikler
+- ✅ 1. Kullanıcı Yönetimi
+- Kullanıcı oluşturma, güncelleme, silme
+- Şifre işlemleri (Hashleme, doğrulama)
+- Kullanıcı giriş ve çıkış işlemleri
+- ✅ 2. Roller ve Yetkilendirme
+- Kullanıcılara roller atama
+- Belirli işlemleri sadece belirli rollerin yapmasını sağlama (Role-Based Authorization)
+- ✅ 3. Güvenlik
+- Şifre karma algoritması kullanımı (Password Hashing)
+- OTP (Tek Kullanımlık Şifre) desteği
+- E-posta doğrulama, SMS doğrulama
+- 2FA (İki Faktörlü Kimlik Doğrulama)
+- ✅ 4. Token Desteği
+- JWT (JSON Web Token) ile API güvenliği
+- Refresh Token desteği
+
+## IJwtProvide.cs nedir ?
+- Token oluşturulucak olan servisin kullanacağı interface yapısı.
+
+## LoginCommand.cs nedir ?
+- Login isteğinin işleneceği gerekli kontrollerin yapılacağı iş sınıfı, içerisinde Identity kütüphanesi ile gelen gerekli şifre kontrolleri , blokeler vs kullanılmıştır.
