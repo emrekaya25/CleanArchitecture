@@ -1,30 +1,40 @@
 ﻿using CleanArchitecture.Domain.Abstractions;
+using CleanArchitecture.Domain.AppUsers;
 using CleanArchitecture.Domain.Common.Repositories;
 using CleanArchitecture.Domain.Users;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infrastructure.Context;
 
-internal sealed class ApplicationDbContext : DbContext, IUnitOfWork
+internal sealed class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>, IUnitOfWork
 {
     public ApplicationDbContext(DbContextOptions options) : base(options)
     {
     }
 
-    public DbSet<User> Users { get; set; }
+    public DbSet<User> Employees { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly); // configuration dosyalarının bulunduğu katmanın assembly'sini veriyoruz ve kendisi otomatik buluyor.
+
+        //IdentityDbContext default olarak 8 tane sınıfı var ve onları tabloya basıyor. İstemediklerimizi bu şekilde ignore etmemiz lazım.
+        modelBuilder.Ignore<IdentityUserClaim<Guid>>();
+        modelBuilder.Ignore<IdentityRoleClaim<Guid>>();
+        modelBuilder.Ignore<IdentityUserToken<Guid>>();
+        modelBuilder.Ignore<IdentityUserLogin<Guid>>();
+        modelBuilder.Ignore<IdentityUserRole<Guid>>();
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
+        HttpContextAccessor httpContextAccessor = new();
+        string userIdString = httpContextAccessor.HttpContext!.User.Claims.First(x => x.Type == "user-id").Value;
+        Guid userId = Guid.Parse(userIdString);
+
         var entries = ChangeTracker.Entries<Entity>();
         foreach (var entry in entries)
         {
@@ -32,6 +42,8 @@ internal sealed class ApplicationDbContext : DbContext, IUnitOfWork
             {
                 entry.Property(x => x.CreateAt)
                     .CurrentValue = DateTimeOffset.Now;
+                entry.Property(x => x.CreateUserId)
+                    .CurrentValue = userId;
             }
 
             if (entry.State == EntityState.Modified)
@@ -39,12 +51,16 @@ internal sealed class ApplicationDbContext : DbContext, IUnitOfWork
                 if (entry.Property(x => x.IsDeleted).CurrentValue == true)
                 {
                     entry.Property(x => x.DeleteAt)
-                    .CurrentValue = DateTimeOffset.Now;
+                        .CurrentValue = DateTimeOffset.Now;
+                    entry.Property(x => x.DeleteUserId)
+                        .CurrentValue = userId;
                 }
                 else
                 {
                     entry.Property(x => x.UpdateAt)
-                    .CurrentValue = DateTimeOffset.Now;
+                        .CurrentValue = DateTimeOffset.Now;
+                    entry.Property(x => x.UpdateUserId)
+                        .CurrentValue = userId;
                 }
             }
 

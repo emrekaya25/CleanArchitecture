@@ -3,6 +3,7 @@ using CleanArchitecture.Infrastructure;
 using CleanArchitecture.WebAPI;
 using CleanArchitecture.WebAPI.Controllers;
 using CleanArchitecture.WebAPI.Modules;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.RateLimiting;
 using Scalar.AspNetCore;
@@ -42,17 +43,28 @@ var app = builder.Build();
 app.MapOpenApi();
 app.MapScalarApiReference();
 
-app.UseCors(
-    x=>x.AllowAnyHeader()
-    .AllowCredentials()
-    .AllowAnyMethod()
-    .SetIsOriginAllowed(t => true)
-    );
+//app.MapDefaultEndpoints();
+
+app.UseHttpsRedirection();
+
+app.UseCors(x => x
+.AllowAnyHeader()
+.AllowCredentials()
+.AllowAnyMethod()
+.SetIsOriginAllowed(t => true));
 
 app.RegistrarRoutes(); // Modülleri burada çalýþtýrdýk.
 
+app.UseAuthentication();
+app.UseAuthorization();
+
+//app.UseResponseCompression();
+
 app.UseExceptionHandler();
 
-app.MapControllers().RequireRateLimiting("fixed"); // artýk yazýlacak tüm controllerlar yukarda oluþturduðumuz fixed isimli rateLimiter tanýmlamasýna uyumlu olmalý.
+app.MapControllers().RequireRateLimiting("fixed").RequireAuthorization();// artýk yazýlacak tüm controllerlar yukarda oluþturduðumuz fixed isimli rateLimiter tanýmlamasýna uyumlu olmalý
+
+
+ExtensionsMiddleware.CreateFirstUser(app);
 
 app.Run();

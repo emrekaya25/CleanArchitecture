@@ -2,7 +2,7 @@
 using CleanArchitecture.Domain.Users;
 using Mapster;
 
-namespace CleanArchitecture.Infrastructure.Configurations
+namespace CleanArchitecture.Infrastructure.Mapping
 {
     public sealed class UserMappingConfig : IRegister
     {

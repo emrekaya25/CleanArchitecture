@@ -1,6 +1,7 @@
 ﻿using CleanArchitecture.Application.Users;
 using CleanArchitecture.Domain.Users;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
