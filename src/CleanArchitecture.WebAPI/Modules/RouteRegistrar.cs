@@ -17,6 +17,7 @@ public static class RouteRegistrar
         //Auth
         app.RegisterAuthRoutes();
         app.CreateUserRoutes();
+        app.GetUserRoutes();
     }
 }
 

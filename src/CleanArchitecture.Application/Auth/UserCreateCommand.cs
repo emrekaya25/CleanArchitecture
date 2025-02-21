@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Domain.AppUsers;
 using CleanArchitecture.Domain.Common.Results;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -12,6 +13,21 @@ public sealed record UserCreateCommand(
     string Email,
     string Password
     ) : IRequest<Result<string>>;
+
+public sealed class UserCreateCommandValidator : AbstractValidator<UserCreateCommand>
+{
+    public UserCreateCommandValidator()
+    {
+        RuleFor(x => x.FirstName).MinimumLength(3).WithMessage("Ad alanı en az 3 karakter olmalıdır.")
+                                .NotEmpty().WithMessage("Ad alanı boş olamaz");
+        RuleFor(x => x.LastName).MinimumLength(3).WithMessage("Soyad alanı en az 3 karakter olmalıdır.")
+                                .NotEmpty().WithMessage("Soyad alanı boş olamaz");
+        RuleFor(x => x.UserName).MinimumLength(3).WithMessage("Kullanıcı adı alanı en az 3 karakter olmalıdır.")
+                                .NotEmpty().WithMessage("Kullanıcı adı alanı boş olamaz");
+        RuleFor(s => s.Email).NotEmpty().WithMessage("Email adres alanı boş olamaz.")
+                     .EmailAddress().WithMessage("Geçerli bir email giriniz");
+    }
+}
 
 internal sealed class UserCreateCommandHandler(UserManager<AppUser> userManager) : IRequestHandler<UserCreateCommand, Result<string>>
 {

@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Application.Auth;
+using CleanArchitecture.Domain.AppUsers;
 using CleanArchitecture.Domain.Common.Results;
 using MediatR;
 
@@ -29,6 +30,21 @@ public static class AuthModule
                 return response.IsSuccessful ? Results.Ok(response) : Results.InternalServerError(response);
             })
             .Produces<Result<string>>();
+    }
+
+    public static void GetUserRoutes(this IEndpointRouteBuilder app)
+    {
+        RouteGroupBuilder group = app.MapGroup("/auth").WithTags("Auth");
+
+        group.MapGet("getUser",
+            async (ISender sender,
+            Guid Id,
+            CancellationToken cancellationToken) =>
+            {
+                var response = await sender.Send(new UserGetQuery(Id),cancellationToken);
+                return response.IsSuccessful ? Results.Ok(response) : Results.InternalServerError(response);
+            })
+            .Produces<Result<AppUser>>();
     }
 }
 
