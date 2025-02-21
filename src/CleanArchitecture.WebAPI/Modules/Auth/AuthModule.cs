@@ -17,5 +17,18 @@ public static class AuthModule
             })
             .Produces<Result<LoginCommandResponse>>();
     }
+
+    public static void CreateUserRoutes(this IEndpointRouteBuilder app)
+    {
+        RouteGroupBuilder group = app.MapGroup("/auth").WithTags("Auth");
+
+        group.MapPost("addUser",
+            async (ISender sender, UserCreateCommand request, CancellationToken cancellationToken) =>
+            {
+                var response = await sender.Send(request, cancellationToken);
+                return response.IsSuccessful ? Results.Ok(response) : Results.InternalServerError(response);
+            })
+            .Produces<Result<string>>();
+    }
 }
 

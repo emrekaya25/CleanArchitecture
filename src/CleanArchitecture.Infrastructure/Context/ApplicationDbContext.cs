@@ -16,6 +16,7 @@ internal sealed class ApplicationDbContext : IdentityDbContext<AppUser, Identity
     }
 
     public DbSet<Employee> Employees { get; set; }
+    //Identity kütüphanesi otomatik olarak AppUser'ı dbset olarak ekliyor.
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -32,8 +33,16 @@ internal sealed class ApplicationDbContext : IdentityDbContext<AppUser, Identity
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         HttpContextAccessor httpContextAccessor = new();
-        string userIdString = httpContextAccessor.HttpContext!.User.Claims.First(x => x.Type == "user-id").Value;
-        Guid userId = Guid.Parse(userIdString); // giriş yapan kullanıcının id'sini aldık.
+        Guid userId = Guid.Empty; // Default olarak boş GUID kullanıyoruz.
+
+        if (httpContextAccessor.HttpContext != null) // ilk çalıştırmada boş geldiği için hataya düşüyor o yüzden koşul ekledik.
+        {
+            var userIdClaim = httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "user-id");
+            if (userIdClaim != null && Guid.TryParse(userIdClaim.Value, out Guid parsedUserId))
+            {
+                userId = parsedUserId; // giriş yapan kullanıcının id'sini aldık.
+            }
+        } 
 
         var entries = ChangeTracker.Entries<Entity>();
         foreach (var entry in entries)
