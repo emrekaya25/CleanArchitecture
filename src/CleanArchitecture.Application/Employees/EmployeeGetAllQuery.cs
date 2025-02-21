@@ -1,19 +1,14 @@
 ﻿using CleanArchitecture.Domain.Abstractions;
 using CleanArchitecture.Domain.AppUsers;
-using CleanArchitecture.Domain.Users;
+using CleanArchitecture.Domain.Employees;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.Users;
+namespace CleanArchitecture.Application.Employees;
 
-public sealed record UserGetAllQuery() : IRequest<IQueryable<UserGetAllQueryResponse>>;
+public sealed record EmployeeGetAllQuery() : IRequest<IQueryable<EmployeeGetAllQueryResponse>>;
 
-public sealed class UserGetAllQueryResponse : EntityDTO
+public sealed class EmployeeGetAllQueryResponse : EntityDTO
 {
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;
@@ -21,14 +16,14 @@ public sealed class UserGetAllQueryResponse : EntityDTO
     public string FullAddress { get; set; } = default!;
 }
 
-internal sealed class UserGetAllQueryHandler(IUserRepository userRepository,
-    UserManager<AppUser> userManager) : IRequestHandler<UserGetAllQuery, IQueryable<UserGetAllQueryResponse>>
+internal sealed class EmployeeGetAllQueryHandler(IEmployeeRepository employeeRepository,
+    UserManager<AppUser> userManager) : IRequestHandler<EmployeeGetAllQuery, IQueryable<EmployeeGetAllQueryResponse>>
 {
-    public Task<IQueryable<UserGetAllQueryResponse>> Handle(UserGetAllQuery request, CancellationToken cancellationToken)
+    public Task<IQueryable<EmployeeGetAllQueryResponse>> Handle(EmployeeGetAllQuery request, CancellationToken cancellationToken)
     {
         //bunlar inner join
         var response = (
-                        from user in userRepository.GetAll()
+                        from user in employeeRepository.GetAll()
                         // yeni oluşturulmada oluşturan kullanıcı kısmı
                         join create_user in userManager.Users.AsQueryable() on user.CreateUserId equals create_user.Id
                         // güncelleyen kullanıcı kısmı
@@ -38,7 +33,7 @@ internal sealed class UserGetAllQueryHandler(IUserRepository userRepository,
                         join delete_user in userManager.Users.AsQueryable() on user.DeleteUserId equals delete_user.Id into delete_user
                         from delete_users in delete_user.DefaultIfEmpty() // bu kısımda left join'e çevriliyor.
                         // güncelleyen ve silen kısmı boş olma ihtimali olduğu için ekstra defaultIfEmpty() sorgusunu ekledik.
-                        select new UserGetAllQueryResponse
+                        select new EmployeeGetAllQueryResponse
                         {
                             Id = user.Id,
                             FirstName = user.FirstName,

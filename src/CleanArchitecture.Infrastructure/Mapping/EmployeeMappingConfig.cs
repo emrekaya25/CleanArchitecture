@@ -1,14 +1,14 @@
-﻿using CleanArchitecture.Application.Users;
-using CleanArchitecture.Domain.Users;
+﻿using CleanArchitecture.Application.Employees;
+using CleanArchitecture.Domain.Employees;
 using Mapster;
 
 namespace CleanArchitecture.Infrastructure.Mapping
 {
-    public sealed class UserMappingConfig : IRegister
+    public sealed class EmployeeMappingConfig : IRegister
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<UserUpdateCommand, User>()
+            config.NewConfig<EmployeeUpdateCommand, Employee>()
                 .IgnoreNullValues(true);
             /*     .Map(dest => dest.PersonalInformation.TcNo,     
          src => string.IsNullOrWhiteSpace(src.PersonalInformation?.TcNo) 

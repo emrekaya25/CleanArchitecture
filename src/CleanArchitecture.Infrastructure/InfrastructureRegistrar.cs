@@ -1,22 +1,14 @@
 ﻿using CleanArchitecture.Domain.AppUsers;
 using CleanArchitecture.Domain.Common.Repositories;
-using CleanArchitecture.Domain.Users;
 using CleanArchitecture.Infrastructure.Context;
 using CleanArchitecture.Infrastructure.Options;
-using CleanArchitecture.Infrastructure.Repositories;
 using Mapster;
-using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Scrutor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infrastructure;
 

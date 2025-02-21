@@ -1,5 +1,5 @@
 ﻿using CleanArchitecture.WebAPI.Modules.Auth;
-using CleanArchitecture.WebAPI.Modules.Users;
+using CleanArchitecture.WebAPI.Modules.Employees;
 
 namespace CleanArchitecture.WebAPI.Modules;
 
@@ -9,10 +9,10 @@ public static class RouteRegistrar
     public static void RegistrarRoutes(this IEndpointRouteBuilder app)
     {
         //User
-        app.RegisterUserRoutes();
-        app.DeleteUserRoutes();
-        app.UpdateUserRoutes();
-        app.GetUserRoutes();
+        app.RegisterEmployeeRoutes();
+        app.DeleteEmployeeRoutes();
+        app.UpdateEmployeeRoutes();
+        app.GetEmployeeRoutes();
 
         //Auth
         app.RegisterAuthRoutes();

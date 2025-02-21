@@ -1,17 +1,12 @@
-﻿using CleanArchitecture.Domain.Users;
+﻿using CleanArchitecture.Domain.Employees;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infrastructure.Configurations;
 
-internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
+internal sealed class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
 {
-    public void Configure(EntityTypeBuilder<User> builder)
+    public void Configure(EntityTypeBuilder<Employee> builder)
     {
         builder.OwnsOne(x => x.PersonalInformation, builder =>
         {

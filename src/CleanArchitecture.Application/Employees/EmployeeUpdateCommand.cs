@@ -1,18 +1,13 @@
 ﻿using CleanArchitecture.Domain.Common.Repositories;
 using CleanArchitecture.Domain.Common.Results;
-using CleanArchitecture.Domain.Users;
+using CleanArchitecture.Domain.Employees;
 using FluentValidation;
 using Mapster;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.Users;
+namespace CleanArchitecture.Application.Employees;
 
-public sealed record UserUpdateCommand(
+public sealed record EmployeeUpdateCommand(
     Guid Id,
     string? FirstName,
     string? LastName,
@@ -20,9 +15,9 @@ public sealed record UserUpdateCommand(
     PersonalInformation PersonalInformation,
     Address? Address) : IRequest<Result<string>>;
 
-public sealed class UserUpdateCommandValidator : AbstractValidator<UserUpdateCommand>
+public sealed class EmployeeUpdateCommandValidator : AbstractValidator<EmployeeUpdateCommand>
 {
-    public UserUpdateCommandValidator()
+    public EmployeeUpdateCommandValidator()
     {
         RuleFor(x => x.FirstName).MinimumLength(3).WithMessage("Ad alanı en az 3 karakter olmalıdır.");
         RuleFor(x => x.LastName).MinimumLength(3).WithMessage("Soyad alanı en az 3 karakter olmalıdır.");
@@ -32,25 +27,25 @@ public sealed class UserUpdateCommandValidator : AbstractValidator<UserUpdateCom
     }
 }
 
-internal sealed class UserUpdateCommandHandler(
-    IUserRepository userRepository,
-    IUnitOfWork unitOfWork) : IRequestHandler<UserUpdateCommand, Result<string>>
+internal sealed class EmployeeUpdateCommandHandler(
+    IEmployeeRepository employeeRepository,
+    IUnitOfWork unitOfWork) : IRequestHandler<EmployeeUpdateCommand, Result<string>>
 {
-    async Task<Result<string>> IRequestHandler<UserUpdateCommand, Result<string>>.Handle(UserUpdateCommand request, CancellationToken cancellationToken)
+    async Task<Result<string>> IRequestHandler<EmployeeUpdateCommand, Result<string>>.Handle(EmployeeUpdateCommand request, CancellationToken cancellationToken)
     {
-        User? user = await userRepository.FirstOrDefaultAsync(x => x.Id == request.Id,cancellationToken);
+        Employee? employee = await employeeRepository.FirstOrDefaultAsync(x => x.Id == request.Id,cancellationToken);
 
-        if (user is null)
+        if (employee is null)
         {
             return Result<string>.Failure("Kullanıcı bulunamadı.");
         }
 
         if (!string.IsNullOrWhiteSpace(request.PersonalInformation?.TcNo)) //TcNo boş "" girildi ise eski değerini geri alır.
         {
-            user.PersonalInformation.TcNo = request.PersonalInformation.TcNo;
+            employee.PersonalInformation.TcNo = request.PersonalInformation.TcNo;
         }
-        request.Adapt(user);
-        userRepository.Update(user);
+        request.Adapt(employee);
+        employeeRepository.Update(employee);
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
 

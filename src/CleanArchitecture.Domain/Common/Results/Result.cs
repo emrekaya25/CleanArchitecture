@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Domain.Common.Results;
 
-    public sealed class Result<T>
+public sealed class Result<T>
 {
     [JsonPropertyName("data")]
     public T? Data { get; set; }

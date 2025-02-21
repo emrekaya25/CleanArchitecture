@@ -1,7 +1,7 @@
 ﻿using CleanArchitecture.Domain.Abstractions;
 using CleanArchitecture.Domain.AppUsers;
 using CleanArchitecture.Domain.Common.Repositories;
-using CleanArchitecture.Domain.Users;
+using CleanArchitecture.Domain.Employees;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -15,7 +15,7 @@ internal sealed class ApplicationDbContext : IdentityDbContext<AppUser, Identity
     {
     }
 
-    public DbSet<User> Employees { get; set; }
+    public DbSet<Employee> Employees { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
