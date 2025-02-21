@@ -11,6 +11,11 @@ using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// response boyutlarýný düþürecek kod
+builder.Services.AddResponseCompression(opt =>
+{
+    opt.EnableForHttps = true;
+});
 
 // kendi yazdýðýmýz registrar'larý ekledik.
 builder.Services.AddApplication();
@@ -45,7 +50,7 @@ app.MapScalarApiReference();
 
 //app.MapDefaultEndpoints();
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection();//HTTPS korumasýný aktif eder.(güvenlik)
 
 app.UseCors(x => x
 .AllowAnyHeader()
@@ -58,7 +63,7 @@ app.RegistrarRoutes(); // Modülleri burada çalýþtýrdýk.
 app.UseAuthentication();
 app.UseAuthorization();
 
-//app.UseResponseCompression();
+app.UseResponseCompression();
 
 app.UseExceptionHandler();
 
@@ -66,5 +71,6 @@ app.MapControllers().RequireRateLimiting("fixed").RequireAuthorization();// artý
 
 
 ExtensionsMiddleware.CreateFirstUser(app);
+
 
 app.Run();

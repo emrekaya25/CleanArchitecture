@@ -18,6 +18,7 @@
 - **EntityFrameworkCore**: ORM(Object-Relational Mapping) için kullanıldı.
 - **OData**: Sorgulama ve veri erişiminde esneklik sağlamak için kullanıldı.
 - **Scrutor**: Dependency Injection yönetimi ve dinamik servis kaydı için kullanıldı.
+- **Microsoft.Identity**: Kimlik doğrulama (authentication) ve yetkilendirme (authorization) işlemlerini yönetmek için kullanılan bir kütüphanedir. Kullanıcı yönetimi, roller, şifreleme, token doğrulama gibi birçok güvenlik özelliğini sağlar.
 
 
 ## Kurulum ve Kullanım

@@ -44,6 +44,8 @@ internal sealed class ApplicationDbContext : IdentityDbContext<AppUser, Identity
                     .CurrentValue = DateTimeOffset.Now;
                 entry.Property(x => x.CreateUserId)
                     .CurrentValue = userId;
+                entry.Property(x => x.IsActive)
+                    .CurrentValue = true;
             }
 
             if (entry.State == EntityState.Modified)
@@ -54,6 +56,8 @@ internal sealed class ApplicationDbContext : IdentityDbContext<AppUser, Identity
                         .CurrentValue = DateTimeOffset.Now;
                     entry.Property(x => x.DeleteUserId)
                         .CurrentValue = userId;
+                    entry.Property(x => x.IsActive)
+                        .CurrentValue = false;
                 }
                 else
                 {
@@ -61,6 +65,11 @@ internal sealed class ApplicationDbContext : IdentityDbContext<AppUser, Identity
                         .CurrentValue = DateTimeOffset.Now;
                     entry.Property(x => x.UpdateUserId)
                         .CurrentValue = userId;
+                    if (entry.Property(x => x.IsActive).CurrentValue == false)
+                    {
+                        entry.Property(x => x.IsActive)
+                        .CurrentValue = true;
+                    }
                 }
             }
 
