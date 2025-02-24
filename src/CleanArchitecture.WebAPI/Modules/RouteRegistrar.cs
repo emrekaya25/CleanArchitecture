@@ -18,6 +18,9 @@ public static class RouteRegistrar
         app.RegisterAuthRoutes();
         app.CreateUserRoutes();
         app.GetUserRoutes();
+        app.UserChangePasswordRoutes();
+        app.UserForgotPasswordRoutes();
+        app.UserChangeForgotPasswordRoutes();
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Application.Employees;
+﻿using CleanArchitecture.Application.Auth;
+using CleanArchitecture.Application.Employees;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -17,13 +18,13 @@ public class AppODataController(ISender sender) : ODataController
     {
         ODataConventionModelBuilder builder = new();
         builder.EnableLowerCamelCase();
-        builder.EntitySet<EmployeeGetAllQueryResponse>("users"); // altta yazdığın endpointin ismini en sona dönüş tipinide EntitySet'in içine yazıyosun.
+        builder.EntitySet<EmployeeGetAllQueryResponse>("employees"); // altta yazdığın endpointin ismini en sona dönüş tipinide EntitySet'in içine yazıyosun.
         return builder.GetEdmModel();
     }
 
-    [HttpGet("users")]
+    [HttpGet("employees")]
     //Bu şekilde direk yaptığımızda OData çalışıyor fakat böyle yaptığımız zaman bize toplam sayıyı vermiyor bu yüzden program.cs'e gidip OData'nın yapısına bazı seçenekler ekliyoruz.
-    public async Task<IQueryable<EmployeeGetAllQueryResponse>> GetAllUsers(CancellationToken cancellationToken)
+    public async Task<IQueryable<EmployeeGetAllQueryResponse>> GetAllEmployees(CancellationToken cancellationToken)
     {
         var response = await sender.Send(new EmployeeGetAllQuery(), cancellationToken);
         return response;
