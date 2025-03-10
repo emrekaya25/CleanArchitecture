@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace CleanArchitecture.Domain.Abstractions;
 
 //Interface yerine abstract class yapıp kullanıyoruz.
-public abstract class Entity
+public abstract class Entity : IEntity
 {
     public Entity()
     {

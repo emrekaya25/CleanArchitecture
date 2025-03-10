@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CleanArchitecture.Domain.Abstractions;
+using Microsoft.AspNetCore.Identity;
 
 namespace CleanArchitecture.Domain.AppUsers;
-public sealed class AppUser : IdentityUser<Guid> // verdiğim guid Id'sinin db de tutulma tipi
+public sealed class AppUser : IdentityUser<Guid> ,IEntity// verdiğim guid Id'sinin db de tutulma tipi
 {
     public AppUser()
     {
@@ -17,11 +18,11 @@ public sealed class AppUser : IdentityUser<Guid> // verdiğim guid Id'sinin db d
     #region Audit Log
     public DateTimeOffset CreateAt { get; set; }
     public Guid CreateUserId { get; set; } = default!;
-    public DateTimeOffset? UpdateAt { get; set; }
+    public DateTimeOffset UpdateAt { get; set; }
     public Guid? UpdateUserId { get; set; }
-    public DateTimeOffset? DeleteAt { get; set; }
+    public DateTimeOffset DeleteAt { get; set; }
     public Guid? DeleteUserId { get; set; }
-    public bool? IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
     public bool IsActive { get; set; }
     #endregion
 }

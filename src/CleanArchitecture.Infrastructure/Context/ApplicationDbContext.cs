@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Domain.Abstractions;
+using CleanArchitecture.Domain.AppRoles;
 using CleanArchitecture.Domain.AppUsers;
 using CleanArchitecture.Domain.Common.Repositories;
 using CleanArchitecture.Domain.Employees;
@@ -9,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Infrastructure.Context;
 
-internal sealed class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>, IUnitOfWork
+internal sealed class ApplicationDbContext : IdentityDbContext<AppUser, AppRole, Guid>, IUnitOfWork
 {
     public ApplicationDbContext(DbContextOptions options) : base(options)
     {
@@ -44,7 +45,7 @@ internal sealed class ApplicationDbContext : IdentityDbContext<AppUser, Identity
             }
         } 
 
-        var entries = ChangeTracker.Entries<Entity>();
+        var entries = ChangeTracker.Entries<IEntity>();
         foreach (var entry in entries)
         {
             if (entry.State == EntityState.Added)
@@ -55,6 +56,8 @@ internal sealed class ApplicationDbContext : IdentityDbContext<AppUser, Identity
                     .CurrentValue = userId;
                 entry.Property(x => x.IsActive)
                     .CurrentValue = true;
+                entry.Property(x => x.IsDeleted)
+                    .CurrentValue = false;
             }
 
             if (entry.State == EntityState.Modified)

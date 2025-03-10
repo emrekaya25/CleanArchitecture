@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Domain.AppUsers;
+﻿using CleanArchitecture.Domain.AppRoles;
+using CleanArchitecture.Domain.AppUsers;
 using CleanArchitecture.Domain.Common.Repositories;
 using CleanArchitecture.Infrastructure.Context;
 using CleanArchitecture.Infrastructure.Options;
@@ -28,7 +29,7 @@ public static class InfrastructureRegistrar
 
         //bu bağlantıyı userManager'ı kullanabilmek için yapıyoruz(UserManager'ın DI'ı).
         services
-            .AddIdentity<AppUser, IdentityRole<Guid>>(opt =>
+            .AddIdentity<AppUser, AppRole>(opt =>
             {
                 opt.Password.RequiredLength = 1;
                 opt.Password.RequireNonAlphanumeric = false;

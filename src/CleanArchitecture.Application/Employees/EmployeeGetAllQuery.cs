@@ -32,6 +32,7 @@ internal sealed class EmployeeGetAllQueryHandler(IEmployeeRepository employeeRep
                         // silen kullanıcı kısmı 
                         join delete_user in userManager.Users.AsQueryable() on user.DeleteUserId equals delete_user.Id into delete_user
                         from delete_users in delete_user.DefaultIfEmpty() // bu kısımda left join'e çevriliyor.
+
                         // güncelleyen ve silen kısmı boş olma ihtimali olduğu için ekstra defaultIfEmpty() sorgusunu ekledik.
                         select new EmployeeGetAllQueryResponse
                         {

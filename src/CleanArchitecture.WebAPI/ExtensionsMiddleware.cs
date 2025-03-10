@@ -16,10 +16,15 @@ public static class ExtensionsMiddleware
                 {
                     UserName = "admin",
                     Email = "admin@admin.com",
-                    FirstName = "Emre",
-                    LastName = "Kaya",
+                    FirstName = "Admin",
+                    LastName = "Admin",
                     EmailConfirmed = true,
                     CreateAt = DateTimeOffset.Now,
+                    IsActive = true,
+                    IsDeleted = false,
+                    TwoFactorEnabled = false,
+                    NormalizedUserName = "ADMIN",
+                    NormalizedEmail = "ADMIN@ADMIN.COM",
                 };
 
                 user.CreateUserId = user.Id;

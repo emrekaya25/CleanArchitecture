@@ -21,7 +21,7 @@ public static class AuthModule
 
     public static void CreateUserRoutes(this IEndpointRouteBuilder app)
     {
-        RouteGroupBuilder group = app.MapGroup("/auth").WithTags("Auth");
+        RouteGroupBuilder group = app.MapGroup("/auth").WithTags("Auth").RequireAuthorization();
 
         group.MapPost("addUser",
             async (ISender sender, UserCreateCommand request, CancellationToken cancellationToken) =>

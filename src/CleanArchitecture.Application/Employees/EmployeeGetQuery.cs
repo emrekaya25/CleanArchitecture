@@ -12,10 +12,9 @@ internal sealed class EmployeeGetQueryHandler(
     public async Task<Result<Employee>> Handle(EmployeeGetQuery request, CancellationToken cancellationToken)
     {
         var employee = await employeeRepository.FirstOrDefaultAsync(x => x.Id == request.Id);
+
         if (employee is null)
-        {
             return Result<Employee>.Failure("Kullanıcı bulunamadı");
-        }
 
         return employee;
     }

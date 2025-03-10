@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.WebAPI.Modules.Auth;
 using CleanArchitecture.WebAPI.Modules.Employees;
+using CleanArchitecture.WebAPI.Modules.Roles;
 
 namespace CleanArchitecture.WebAPI.Modules;
 
@@ -21,6 +22,12 @@ public static class RouteRegistrar
         app.UserChangePasswordRoutes();
         app.UserForgotPasswordRoutes();
         app.UserChangeForgotPasswordRoutes();
+
+        //Role
+        app.CreateRoleRoutes();
+        app.DeleteRoleRoutes();
+        app.GetRoleRoutes();
+        app.UpdateRoleRoutes();
     }
 }
 
