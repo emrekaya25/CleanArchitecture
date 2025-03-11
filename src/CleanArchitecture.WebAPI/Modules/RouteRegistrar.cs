@@ -1,6 +1,7 @@
 ﻿using CleanArchitecture.WebAPI.Modules.Auth;
 using CleanArchitecture.WebAPI.Modules.Employees;
 using CleanArchitecture.WebAPI.Modules.Roles;
+using CleanArchitecture.WebAPI.Modules.UserRoles;
 
 namespace CleanArchitecture.WebAPI.Modules;
 
@@ -28,6 +29,10 @@ public static class RouteRegistrar
         app.DeleteRoleRoutes();
         app.GetRoleRoutes();
         app.UpdateRoleRoutes();
+
+        //UserRole
+        app.CreateUserRoleRoutes();
+        app.DeleteUserRoleRoutes();
     }
 }
 

@@ -3,6 +3,7 @@ using CleanArchitecture.Domain.AppRoles;
 using CleanArchitecture.Domain.AppUsers;
 using CleanArchitecture.Domain.Common.Repositories;
 using CleanArchitecture.Domain.Employees;
+using CleanArchitecture.Domain.UserRoles;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -16,6 +17,7 @@ internal sealed class ApplicationDbContext : IdentityDbContext<AppUser, AppRole,
     {
     }
 
+    public DbSet<UserRole> MyUserRoles { get; set; }  
     public DbSet<Employee> Employees { get; set; }
     //Identity kütüphanesi otomatik olarak AppUser'ı dbset olarak ekliyor.
 

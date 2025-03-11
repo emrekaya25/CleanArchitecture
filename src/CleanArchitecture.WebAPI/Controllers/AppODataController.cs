@@ -1,6 +1,7 @@
 ﻿using CleanArchitecture.Application.Auth;
 using CleanArchitecture.Application.Employees;
 using CleanArchitecture.Application.Roles;
+using CleanArchitecture.Application.UserRoles;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -23,6 +24,7 @@ public class AppODataController(ISender sender) : ODataController
         builder.EntitySet<EmployeeGetAllQueryResponse>("employees"); // altta yazdığın endpointin ismini en sona dönüş tipinide EntitySet'in içine yazıyosun.
         builder.EntitySet<UserGetAllQueryResponse>("users");
         builder.EntitySet<RoleGetAllQueryResponse>("roles");
+        builder.EntitySet<UserRoleGetAllQueryResponse>("userRoles");
 
         return builder.GetEdmModel();
     }
@@ -46,6 +48,13 @@ public class AppODataController(ISender sender) : ODataController
     public async Task<IQueryable<RoleGetAllQueryResponse>> GetAllRoles(CancellationToken cancellationToken)
     {
         var response = await sender.Send(new RoleGetAllQuery(), cancellationToken);
+        return response;
+    }
+
+    [HttpGet("userRoles")]
+    public async Task<IQueryable<UserRoleGetAllQueryResponse>> GetAllUserRoles(CancellationToken cancellationToken)
+    {
+        var response = await sender.Send(new UserRoleGetAllQuery(), cancellationToken);
         return response;
     }
 }
