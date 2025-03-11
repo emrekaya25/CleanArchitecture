@@ -33,6 +33,8 @@ public static class RouteRegistrar
         //UserRole
         app.CreateUserRoleRoutes();
         app.DeleteUserRoleRoutes();
+        app.GetUserRoleRoutes();
+        app.UpdateUserRoleRoutes();
     }
 }
 

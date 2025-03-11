@@ -20,7 +20,13 @@ builder.Services.AddResponseCompression(opt =>
 // kendi yazdýðýmýz registrar'larý ekledik.
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddCors();
+builder.Services.AddCors( opt =>
+{
+    opt.AddPolicy("MyPolicy", builder =>
+    {
+        builder.SetPreflightMaxAge(TimeSpan.FromMinutes(10)); // Faster Response Time and Less Load on the server --> cqrs için daha performanslý çalýþmasýný saðlýyor.
+    });
+});
 builder.Services.AddOpenApi(); // OpenApi ekliyoruz.
 builder.Services.AddControllers().AddOData(opt => 
     opt
